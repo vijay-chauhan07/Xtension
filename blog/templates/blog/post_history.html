@@ -1,0 +1,49 @@
+{% extends 'blog/base.html'%}
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <H1>Draft</H1>
+            {% for history in histories %}
+
+            {% if history.status == 'draft' %}
+            <h5><a href="{% url 'blog:post_update' history.pk %}" class="card-link">{{history.title|title}}</a>
+            </h5>
+
+
+
+            {% endif %}
+            {% empty %}
+            <p>No</p>
+
+            {% endfor %}
+
+
+        </div>
+        <div class="col-md-4">
+            <H1>published </H1>
+            {% for history in histories %}
+
+            {% if history.status == 'published'%}
+            <h5><a href="{% url 'blog:post_update' history.pk %}" class="card-link">{{history.title|title}}</a>
+            </h5>
+
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <div class="col-md-4">
+            {% include 'archive.html' %}
+
+        </div>
+
+
+    </div>
+
+    <div class="w-100"></div>
+
+
+
+    {% endblock %}

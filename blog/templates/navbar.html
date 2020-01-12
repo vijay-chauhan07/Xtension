@@ -1,0 +1,95 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'blog/style.css' %}">
+
+
+
+
+
+<nav class="navbar  navbar-inverse navbar-fixed-top navbar-expand-lg navbar-light bg-light" id="navbar-whole">
+    <!-- Just an image -->
+
+    <a class="navbar-brand text-dark" href="{% url 'post_list' %}">
+        <img src="{% static '../static/icon/xtension1.png' %}" width="100" height="40" alt="Icon Image">
+
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-link ">
+                <a href="{% url 'post_list' %}" class="text-dark"><i class="fas fa-home"></i></a>
+
+            </li>
+            <li class="nav-link">
+
+            </li>
+
+
+            {% if request.user.is_authenticated %}
+            <li class="nav-link">
+
+                <a href="{% url 'blog:post_create' %}" class="text-dark">New+</a>
+
+                <a href="{% url 'blog:user_post_history' author_id=request.user.id %}" class="text-dark">History</a>
+
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-nav mr-auto">
+
+            <form class="form-inline my-2 my-lg-0" action="{% url 'post_list' %}">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+        </ul>
+
+        <ul class="navbar-nav">
+
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {% if request.user.profile.photo %}
+                    <img src="{{ request.user.profile.photo.url }}" alt="img" class="navbar-img">
+                    {% else %}
+                    <img src="{% static '../static/icon/avtar.png' %}" alt="img" class="navbar-img">
+                    {% endif %}
+
+                    <span class="text-dark">{{ request.user|capfirst }}</span>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if request.user.is_authenticated and request.user.profile.dob %}
+                    <a class="dropdown-item" href="{% url 'blog:display_profile' %}">profile</a>
+                    {% else %}
+
+                    <a class="dropdown-item" href="{% url 'edit_profile' %}">edit profile</a>
+                    {% endif %}
+
+                    <a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a>
+
+
+
+
+
+
+
+                    <div class="dropdown-divider"></div>
+                </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a href="{% url 'user_login' %}" class="nav-link text-dark"><i class="fas fa-sign-in-alt fa-2x"></i></a>
+
+            </li>
+            {% endif %}
+        </ul>
+
+    </div>
+</nav>

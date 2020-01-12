@@ -1,0 +1,54 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% if abouts is not None %}
+
+<div class="card mb-4">
+
+    {% if abouts.photo %}
+    {% load static %}
+    <img src="{{ abouts.photo.url }}" alt="img" class=" profile-img">
+    {% else %}
+    <img src="{% static '../static/icon/avtar.png' %}" alt="img" class="profile-img">
+    <div class="card-img-overlay">
+        <h5 class="">Upload image</h5>
+
+    </div>
+
+
+
+    {% endif%}
+
+    <div class="card-body">
+        <h2><small class="badge badge-primary">{{ abouts.user }}</small></h2>
+        <h4 class="card-title">{{abouts.user.first_name}} {{abouts.user.last_name}}
+        </h4>
+        <h4 class="card-title"> from : <small>{{abouts.city}}</small>,
+            <small>{{abouts.country}}</small>
+        </h4>
+        <h4 class="card-title">website:<small><a href="{{ abouts.website }}">{{abouts.website}}</a></small>
+        </h4>
+        <h4 class="card-title">Published post{{post|pluralize}}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>{{post}}</small>
+        </h4>
+
+
+
+        <div id="follow-section">
+            {% include 'blog/follow.html' %}
+        </div>
+        <small class="text-muted">{{following}}
+            following</small><br>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+{% endif %}
+
+
+
+{% endblock %}

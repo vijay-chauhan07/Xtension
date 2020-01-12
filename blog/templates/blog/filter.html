@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="row">
+    <div class="col">Title</div>
+    <div class="col">Created</div>
+    <div class="col">Last Updated</div>
+    <div class="col">Status</div>
+</div>
+<hr>
+{% for post in posts %}
+
+
+<div class="row">
+    <div class="col">
+        <a href="{{ post.get_absolute_url }}" name='user_id'>{{post.title|title}}</a>
+    </div>
+    <div class="col">{{post.created}}</div>
+    <div class="col">{{post.updated}}</div>
+    <div class="col">{{post.status}}</div>
+</div>
+{% empty %}
+<h5 class="card-title">Sorry, there is no post.</h5>
+{% endfor %}
+{% endif %}
+
+
+
+{% endblock %}

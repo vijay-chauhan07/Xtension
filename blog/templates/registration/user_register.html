@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block javascript %}
+<script>
+    $("#id_username, #id_email").change(function () {
+        var username = $(this).val();
+        var email = $(this).val();
+
+        $.ajax({
+            url: '{% url "validate_username" %}',
+            data: {
+                'username': username,
+                'email': email
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_taken) {
+                    alert('A user with this username already exists.');
+                }
+                if (data.is_email) {
+                    alert('A user with this email id already exists.');
+                }
+            }
+
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<h1>User Registation</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Sign-up</button>
+</form>
+{% endblock %}

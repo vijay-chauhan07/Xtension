@@ -1,0 +1,72 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load social_share %}
+<div class="messages">
+    {% if messages %}
+    {% for message in messages %}
+    <p class=" alert alert-{{message.tags}}">{{message}}</p>
+
+    {% endfor %}
+    {% endif %}
+</div>
+
+<div class="container-fluid">
+    <h3>{{ post.title|title }}</h3>
+
+    <div class="gallery">
+        {% for p in post.images_set.all %}
+
+
+        <div class="col-md-3">
+            {% if p.image %}
+            <img src="{{ p.image.url }}" alt="Image not found" class="image-thumbnail">
+
+        </div>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
+
+    <p><small>Post created: {{ post.created|timesince }} ago</small></p>
+
+
+    <p>{{ post.body|linebreaks }}</p>
+
+    <p><small><i class="fas fa-eye"></i>&nbsp;&nbsp;&nbsp;{{p}}</small></p>
+
+    <div class="share_link">
+        {% post_to_facebook object_or_url '<i class="fab fa-facebook-square fa-2x" style="color:navy;"></i>'%}
+        {% post_to_twitter "A Good Article:{{post.title}}.check it out!" object_or_url '<i class="fab fa-twitter-square fa-2x" style="color: skyblue;"></i>'%}
+        {% send_email post.title "New Post: {{post.title}}" object_or_url '<i class="fas fa-envelope fa-2x" style="color:black;"></i>' %}
+
+        {% post_to_linkedin post.title  object_or_url '<i class="fab fa-linkedin fa-2x" style="color:rgb(42, 61, 231);"></i>' %}
+        {% post_to_reddit "New Post: {{post.title}}" object_or_url '<i class="fab fa-reddit fa-2x" style="color:orangered;"></i>' %}
+
+    </div>
+
+    <div id="like-section">
+        {% include 'blog/like_section.html' %}
+
+    </div>
+
+    <p>
+        {% if request.user.is_authenticated and request.user.username == post.author.username %}
+
+        <small><a href="{% url 'blog:post_update' post.id %}" class="card-link">Edit+</a>
+        </small> |<small><a href="{% url 'blog:delete'  post.id %}" class="card-link">Delete</a></small>
+
+        {% endif %}
+    </p>
+
+</div>
+<br><br>
+
+<hr>
+{% if not post.restrict_comment %}
+<div class="main-comment-section">
+    {% include 'blog/comment_section.html' %}
+</div>
+{% endif %}
+
+{% endblock %}

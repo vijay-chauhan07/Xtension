@@ -1,0 +1,60 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="row">
+
+    <div class="col-sm-6">
+        <h4 class="card-footer bg-primary text-white">followers List</h4>
+
+        {% for follower in followers %}
+
+
+        {% if follower %}
+
+        <h4 class="card-footer">
+            <img src="{{follower.profile.photo.url}}" class="rounded img-thumbnail" width="40px;" height="10px;" /> <a
+                href="{% url 'about_post_user' user_id=follower.id %}">{{follower.username}}</a>
+
+
+        </h4>
+        {% endif %}
+        {% empty %}
+        <h4 class="card-footer">
+            Sorry you do not have any follower
+
+            {% endfor %}
+
+    </div>
+
+
+    <div class="col-sm-6">
+        <h4 class="card-footer bg-primary text-white">following List</h4>
+
+        {% for following in followings %}
+
+
+        {% if following %}
+
+        <h4 class="card-footer">
+            <img src="{{following.user.profile.photo.url}}" class="rounded img-thumbnail" width="40px;"
+                height="10px;" /> <a
+                href="{% url 'about_post_user' user_id=following.id %}">{{following.user.username}}</a>
+
+
+        </h4>
+        {% endif %}
+
+        {% empty %}
+        <h4 class="card-footer">
+            Sorry, nobody is following you.
+
+
+
+            {% endfor %}
+    </div>
+
+
+</div>
+
+
+{% endblock %}

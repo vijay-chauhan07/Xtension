@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="messages">
+    {% if messages %}
+    {% for message in messages %}
+    <p class=" alert alert-{{message.tags}}">{{message}}</p>
+
+    {% endfor %}
+    {% endif %}
+</div>
+
+<div class="form-group">
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <small>
+            <a href="{% url 'password_reset' %}">Forgotten Your password?</a> | <a href="{% url 'user_register' %}">New
+                user</a>
+        </small>
+
+        <input type="submit" class="btn btn-success" value="Log In" />
+
+
+
+
+
+
+    </form>
+</div>
+<p>
+</p>
+
+<p>--OR--</p>
+<a href="{% url 'social:begin' 'github' %}">
+    <button type="submit" class="btn btn-primary" name="button">Github</button>
+</a>
+<a href="{% url 'social:begin' 'google-oauth2' %}">
+    <button type="submit" class="btn btn-danger" name="button">Google+</button>
+</a>
+{% endblock %}

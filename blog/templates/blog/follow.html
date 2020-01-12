@@ -1,0 +1,10 @@
+<small class="text-muted">{{ total_followers }}
+    follower{{ total_followers|pluralize }}</small>
+
+{% if request.user != abouts.user and request.user.is_authenticated %}
+
+<a href="#" id="follow" name="{{abouts.id}}"
+    class="badge badge-primary  float-right">{% if request.user in abouts.followers.all %}Unfollow{% else %}Follow{% endif %}</a>
+
+
+{% endif %}

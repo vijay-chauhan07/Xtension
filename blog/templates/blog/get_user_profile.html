@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class=" card mb-3">
+    {% if request.user.profile.photo %}
+    {% load static %}
+    <img src="{{ request.user.profile.photo.url }}" alt="img" class="profile-img">
+    {% else %}
+    <img src="{% static '../static/icon/avtar.png' %}" alt="img" class="profile-img">
+    <div class="card-img-overlay">
+        <h5 class="">Upload image</h5>
+
+    </div>
+
+
+    {% endif %}
+    <div class="card-body">
+        <h4 class="card-title">Username: <small>{{request.user.profile.user}}</small></h4>
+        <h4 class="card-title">Name: <small>{{request.user.first_name}}</small>
+            <small>{{request.user.last_name}}</small></small>
+        </h4>
+        <h4 class="card-title">Date of birth: <small>{{request.user.profile.dob}}</small></h4>
+
+        <h4 class="card-title">Email: <small>{{request.user.email}}</small></h4>
+        <h4 class="card-title">contact: <small>{{request.user.profile.mobile}}</small></h4>
+        <h4 class="card-title">website: <small><a
+                    href="{{request.user.profile.website}}">{{request.user.profile.website|urlencode:""}}</a></small>
+        </h4>
+        <h4 class="card-title"> from : <small>{{request.user.profile.city}}</small>,
+            <small>{{request.user.profile.country}}</small>
+        </h4>
+        <h4 class="card-title"> Followers-Following : <small><a href="{% url 'blog:followers_following_list'%}"
+                    class="card-link">Clcik</a></small>
+        </h4>
+
+        <a href="{% url 'edit_profile' %}" class="badge badge-primary">Edit Profile</a>
+
+
+        {{request.user.mobile}}
+
+    </div>
+</div>
+
+
+
+{% endblock %}
