@@ -140,4 +140,5 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+DEFAULT_FROM_EMAIL = 'Xtension@gmail.com'
+PASSWORD_RESET_TIMEOUT_DAY = 1 
