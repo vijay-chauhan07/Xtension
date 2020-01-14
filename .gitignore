@@ -1,4 +1,6 @@
 *.pyc
 blog_project/settings/prod.py
 blog_project/_pycache_
+.env
+*.log
 
